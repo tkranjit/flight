@@ -20,7 +20,18 @@ export async function GET(request: Request) {
   const arrIata = searchParams.get('arr_iata');
   const apiKey = process.env.AVIATION_STACK_API_KEY;
 
+  // Debug logging
+  console.log('Environment check:', {
+    hasApiKey: !!apiKey,
+    nodeEnv: process.env.NODE_ENV,
+    flightNumber,
+    flightDate,
+    depIata,
+    arrIata
+  });
+
   if (!apiKey) {
+    console.error('AVIATION_STACK_API_KEY is not set!');
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
   }
 
